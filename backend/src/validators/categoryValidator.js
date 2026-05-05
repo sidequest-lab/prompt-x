@@ -1,0 +1,11 @@
+const { z } = require("zod");
+
+const categoryQuerySchema = z.object({
+  page: z.coerce.number().int().positive().optional(),
+  limit: z.coerce.number().int().positive().max(100).optional(),
+  search: z.string().trim().optional(),
+});
+
+module.exports = {
+  categoryQuerySchema,
+};
