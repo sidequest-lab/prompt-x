@@ -1,7 +1,10 @@
 import type { ApiErrorShape } from "@/lib/types";
 
-const API_BASE_URL = (
+const CLIENT_API_BASE_URL = (
   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:4000/api/v1"
+).replace(/\/$/, "");
+const SERVER_API_BASE_URL = (
+  process.env.API_BASE_URL_SERVER || CLIENT_API_BASE_URL
 ).replace(/\/$/, "");
 
 type ApiFetchOptions = RequestInit & {
@@ -32,7 +35,9 @@ function getAccessToken() {
 }
 
 function buildApiUrl(path: string) {
-  return `${API_BASE_URL}${path.startsWith("/") ? path : `/${path}`}`;
+  const baseUrl =
+    typeof window === "undefined" ? SERVER_API_BASE_URL : CLIENT_API_BASE_URL;
+  return `${baseUrl}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
 async function parseApiResponse<T>(response: Response): Promise<T> {

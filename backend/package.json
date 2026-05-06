@@ -8,7 +8,8 @@
     "dev": "nodemon server.js",
     "start": "node server.js",
     "seed:creators": "node scripts/seed-creators.js",
-    "test": "node tests/run-tests.js"
+    "test": "node tests/run-tests.js",
+    "seed:demo": "node scripts/seed-demo-data.js"
   },
   "engines": {
     "node": ">=18.18.0"
